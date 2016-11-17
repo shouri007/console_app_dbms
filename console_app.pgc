@@ -75,8 +75,16 @@ int main(int argc,char **argv){
 
 		}else if(choice == 3){
 
-			
+			printf("From(account no) : ");
+			scanf("%s",acno);
+			printf("To(account no) : ");
+			scanf("%s",acno);
 		}
+	
+	}else if(op_index == 4){
+
+		printf("Account No : ");
+		
 	}
 	EXEC SQL COMMIT;
 	return 0;
