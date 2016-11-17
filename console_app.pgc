@@ -15,9 +15,12 @@ int main(int argc,char **argv){
 	char dob[11];
 
 	EXEC SQL BEGIN DECLARE SECTION;
+	
 	char *target = "201401007@10.100.71.21:5432";
 	char *user = "201401007";
 	char *pwd = "abcdef";
+	int num_cus;
+	
 	EXEC SQL END DECLARE SECTION;
 	
 	EXEC SQL CONNECT TO :target USER :user USING :pwd;
@@ -32,6 +35,8 @@ int main(int argc,char **argv){
 	
 	if(op_index == 1){
 
+		EXEC SQL SELECT count(cif) INTO :num_cus FROM customer;
+		printf("%d",num_cus);
 		printf("FirstName : ");
 		scanf("%s",fname);
 		printf("LastName : ");
@@ -49,42 +54,42 @@ int main(int argc,char **argv){
 		
 		printf("Account No : ");
 		scanf("%s",acno);
-		strcpy(query,"SELECT * FROM customer WHERE accountno = ");
-		strcat(query,acno);
 
 	}else if(op_index == 3){
 
 		printf("Choose one.\n");
 		printf("1.Withdraw\n");
 		printf("2.Deposit\n");
-		printf("3.Transfer");
+		printf("3.Transfer\n");
 		scanf("%d",&choice);
 		if(choice == 1){
 			
 			printf("Account No. : ");
 			scanf("%s",acno);
 			printf("Amount : Rs.");
-			printf("%f",&amount);
+			scanf("%f",&amount);
 
 		}else if(choice == 2){
 
 			printf("Account No. : ");
 			scanf("%s",acno);
 			printf("Amount : Rs.");
-			printf("%f",&amount);
+			scanf("%f",&amount);
 
 		}else if(choice == 3){
 
-			printf("From(account no) : ");
+			printf("Sender account no : ");
 			scanf("%s",acno);
-			printf("To(account no) : ");
+			printf("Receiver account no : ");
 			scanf("%s",acno);
+			printf("Amount : ");
+			scanf("%f",&amount);
 		}
 	
 	}else if(op_index == 4){
 
 		printf("Account No : ");
-		
+		scanf("%s",acno);
 	}
 	EXEC SQL COMMIT;
 	return 0;
