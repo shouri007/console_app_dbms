@@ -61,10 +61,13 @@ int main(int argc,char **argv){
 		
 		printf("Account No : ");
 		scanf("%s",acno);
+		printf("\n");
 		EXEC SQL SELECT * INTO :fcif,:acno,:type,:balance,:ifsc,:fname,:lname,:dob,:address,:contactno,:gender FROM account NATURAL JOIN customer WHERE accountno = :acno;
-		sprintf(final_stmt,"%s, %s, %f, %s, %s, %s, %s, %s, %s, %s, %s",acno,type,balance,fcif,ifsc,fname,lname,dob,address,contactno,gender);
-		printf("%s\n",final_stmt);
 
+		sprintf(final_stmt,"cif : %s,\nAccountNo : %s,\nAccountType : %s,\nBalance : %f,\nBranch IFSC : %s,\nFirstName : %s,\nLastName : %s,\nDateOfBirth : %s,\nAddress : %s,\nContactNo : %s,\nGender : %s.",fcif,acno,type,balance,ifsc,fname,lname,dob,address,contactno,gender);
+		
+		printf("%s\n",final_stmt);
+		printf("\n");
 
 	}else if(op_index == 3){
 
@@ -100,8 +103,6 @@ int main(int argc,char **argv){
 	}else if(op_index == 4){
 
 	}
-	EXEC SQL SELECT count(cif) INTO :num_cus FROM customer;
-	printf("%d",num_cus);
 	EXEC SQL COMMIT;
 	EXEC SQL DISCONNECT ALL;
 	return 0;
